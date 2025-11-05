@@ -23,8 +23,6 @@ operatorButtons.forEach(button => {
             number2 = currentDisplay;
         }
 
-        operator = op;
-
         const current = String(display.innerHTML);
         const trimmed = current.trim();
 
@@ -47,17 +45,28 @@ operatorButtons.forEach(button => {
 buttons.forEach(button => {
     button.addEventListener('click', () => {
         const number = button.getAttribute('data-number');
-        
-        // Si 0, remplacer par le nouveau chiffre
-        // Sinon, mettre le chiffre à la suite
-        if (currentDisplay === '0') {
+        if (!display) return;
+
+        const disp = String(display.innerHTML).trim();
+        const lastChar = disp.slice(-1);
+
+        // Cas : affichage initial vide ou "0" -> remplacer
+        if (disp === '' || disp === '0') {
             currentDisplay = number;
-        } else {
-            currentDisplay += number;
+            display.innerHTML = number;
+            return;
         }
 
-        // MAJ de l'affichage
-        display.innerHTML = currentDisplay;
+        // Si le dernier caractère est un opérateur, on commence un nouveau nombre
+        if (isOperator(lastChar)) {
+            currentDisplay = number;
+            display.innerHTML = disp + number;
+            return;
+        }
+
+        // Sinon on est en train d'entrer le même nombre -> concaténer
+        currentDisplay = (currentDisplay === '0' || currentDisplay === '') ? number : currentDisplay + number;
+        display.innerHTML = disp + number;
     });
 });
 
