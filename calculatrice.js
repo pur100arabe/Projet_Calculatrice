@@ -9,11 +9,6 @@ const isOperator = (ch) => ['+', '-', '*', '/'].includes(ch);
 
 const buttons = document.querySelectorAll('[data-number]');
 let currentDisplay = '0';
-
-let number1 = '';
-let operator = '';
-let number2 = '';
-
 let isFirstInput = true;
 
 operatorButtons.forEach(button => {
