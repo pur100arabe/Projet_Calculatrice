@@ -71,7 +71,6 @@ buttons.forEach(button => {
             display.innerHTML = disp + number;
         }
 
-        // 🔥 Mise à jour dynamique de number1 ou number2
         if (operator === "") {
             number1 = currentDisplay; // avant qu’un opérateur soit choisi
         } else {
