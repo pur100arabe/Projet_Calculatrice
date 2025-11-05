@@ -1,6 +1,9 @@
-
+let number1 = "";
+let number2 = "";
+let operator = "";
 let display = document.querySelector('.display');
 let operatorButtons = document.querySelectorAll('.operator');
+let clearButton = document.querySelector('.clear');
 
 const isOperator = (ch) => ['+', '-', '*', '/'].includes(ch);
 
@@ -9,7 +12,7 @@ let currentDisplay = '0';
 
 operatorButtons.forEach(button => {
     button.addEventListener('click', () => {
-        const op = button.getAttribute('data-operator');
+        operator = button.getAttribute('data-operator');
 
         const current = String(display.innerHTML);
         const trimmed = current.trim();
@@ -21,9 +24,9 @@ operatorButtons.forEach(button => {
         const lastChar = trimmed.slice(-1);
 
         if (isOperator(lastChar)) {
-            display.innerHTML = trimmed.slice(0, -1) + op;
+            display.innerHTML = trimmed.slice(0, -1) + operator;
         } else {
-            display.innerHTML = trimmed + op;
+            display.innerHTML = trimmed + operator;
         }
     });
 });
@@ -45,4 +48,12 @@ buttons.forEach(button => {
         // MAJ de l'affichage
         display.innerHTML = currentDisplay;
     });
+});
+
+clearButton.addEventListener('click', () => {
+    currentDisplay = '0';
+    number1 = "";
+    number2 = "";
+    operator = "";
+    display.innerHTML = currentDisplay;
 });
