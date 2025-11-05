@@ -12,6 +12,7 @@ let currentDisplay = '0';
 
 let isFirstInput = true;
 
+// Gestion des opérateurs
 operatorButtons.forEach(button => {
     button.addEventListener('click', () => {
         operator = button.getAttribute('data-operator');
@@ -37,11 +38,12 @@ operatorButtons.forEach(button => {
         } else {
             display.innerHTML = trimmed + operator;
         }
+        currentDisplay = '';
     });
 });
 
 
-// Ajouter un écouteur d'événement à chaque bouton numérique
+//Gestion des chiffres
 buttons.forEach(button => {
     button.addEventListener('click', () => {
         const number = button.getAttribute('data-number');
@@ -54,25 +56,33 @@ buttons.forEach(button => {
         if (disp === '' || disp === '0') {
             currentDisplay = number;
             display.innerHTML = number;
-            updateNumbersFromDisplay();
-            return;
         }
-
         // Si le dernier caractère est un opérateur, on commence un nouveau nombre
-        if (isOperator(lastChar)) {
+        else if (isOperator(lastChar)) {
             currentDisplay = number;
             display.innerHTML = disp + number;
-            updateNumbersFromDisplay();
-            return;
+        }
+        // Sinon on continue le même nombre
+        else {
+            currentDisplay = (currentDisplay === '0' || currentDisplay === '') 
+                ? number 
+                : currentDisplay + number;
+            display.innerHTML = disp + number;
         }
 
-        // Sinon on est en train d'entrer le même nombre -> concaténer
-        currentDisplay = (currentDisplay === '0' || currentDisplay === '') ? number : currentDisplay + number;
-        display.innerHTML = disp + number;
-        updateNumbersFromDisplay();
+        // 🔥 Mise à jour dynamique de number1 ou number2
+        if (operator === "") {
+            number1 = currentDisplay; // avant qu’un opérateur soit choisi
+        } else {
+            number2 = currentDisplay; // après qu’un opérateur ait été choisi
+        }
+
+        console.log(`number1: ${number1}, operator: ${operator}, number2: ${number2}`);
     });
 });
 
+
+// Bouton Clear (C ou Esc)
 clearButton.addEventListener('click', () => {
     currentDisplay = '0';
     number1 = "";
