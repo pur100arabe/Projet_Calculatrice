@@ -134,3 +134,16 @@ function Result() {
 }
 
 resultButton.addEventListener('click', Result);
+
+// Support clavier : chiffres 0-9 -> déclenche les boutons numériques existants
+document.addEventListener('keydown', (e) => {
+    const key = e.key;
+    // Si c'est un chiffre unique 0-9
+    if (/^[0-9]$/.test(key)) {
+        const btn = document.querySelector(`[data-number="${key}"]`);
+        if (btn) {
+            btn.click();
+            e.preventDefault();
+        }
+    }
+});
