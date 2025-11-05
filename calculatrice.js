@@ -84,27 +84,28 @@ buttons.forEach(button => {
 
 
 // Bouton Clear (C ou Esc)
-clearButton.addEventListener('click', () => {
+function Clear() {
     currentDisplay = '0';
     number1 = "";
     number2 = "";
     operator = "";
     display.innerHTML = currentDisplay;
-});
+}
+clearButton.addEventListener('click', Clear);
 
+// Touches clavier pour Clear et Result
 document.addEventListener('keydown', (e) => {
     const key = String(e.key);
     if (key === 'Escape' || key.toLowerCase() === 'c') {
-        currentDisplay = '0';
-        number1 = "";
-        number2 = "";
-        operator = "";
-        display.innerHTML = currentDisplay;
+        Clear();
+    }
+    if(key === 'Enter' || key === '='){
+        Result();
     }
 });
 
-resultButton.addEventListener('click', () => {
-    if (number1 !== "" && operator !== "" && number2 !== "") {
+function Result() {
+        if (number1 !== "" && operator !== "" && number2 !== "") {
         let result;
         const num1 = parseFloat(number1);
         const num2 = parseFloat(number2);
@@ -131,4 +132,6 @@ resultButton.addEventListener('click', () => {
         operator = "";
         isFirstInput = true;
     }
-});
+}
+
+resultButton.addEventListener('click', Result);
