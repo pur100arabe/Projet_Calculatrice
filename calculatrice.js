@@ -22,8 +22,6 @@ operatorButtons.forEach(button => {
             number2 = currentDisplay;
         }
 
-        operator = op;
-
         const current = String(display.innerHTML);
         const trimmed = current.trim();
 
