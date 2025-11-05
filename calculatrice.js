@@ -54,6 +54,7 @@ buttons.forEach(button => {
         if (disp === '' || disp === '0') {
             currentDisplay = number;
             display.innerHTML = number;
+            updateNumbersFromDisplay();
             return;
         }
 
@@ -61,12 +62,14 @@ buttons.forEach(button => {
         if (isOperator(lastChar)) {
             currentDisplay = number;
             display.innerHTML = disp + number;
+            updateNumbersFromDisplay();
             return;
         }
 
         // Sinon on est en train d'entrer le même nombre -> concaténer
         currentDisplay = (currentDisplay === '0' || currentDisplay === '') ? number : currentDisplay + number;
         display.innerHTML = disp + number;
+        updateNumbersFromDisplay();
     });
 });
 
