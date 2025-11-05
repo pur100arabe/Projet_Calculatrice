@@ -1,4 +1,3 @@
-
 let display = document.querySelector('.display');
 let operatorButtons = document.querySelectorAll('.operator');
 
@@ -7,9 +6,24 @@ const isOperator = (ch) => ['+', '-', '*', '/'].includes(ch);
 const buttons = document.querySelectorAll('[data-number]');
 let currentDisplay = '0';
 
+let number1 = '';
+let operator = '';
+let number2 = '';
+
+let isFirstInput = true;
+
 operatorButtons.forEach(button => {
     button.addEventListener('click', () => {
         const op = button.getAttribute('data-operator');
+
+        if (isFirstInput) {
+            number1 = currentDisplay;
+            isFirstInput = false;
+        } else {
+            number2 = currentDisplay;
+        }
+
+        operator = op;
 
         const current = String(display.innerHTML);
         const trimmed = current.trim();
@@ -21,9 +35,9 @@ operatorButtons.forEach(button => {
         const lastChar = trimmed.slice(-1);
 
         if (isOperator(lastChar)) {
-            display.innerHTML = trimmed.slice(0, -1) + op;
+            display.innerHTML = trimmed.slice(0, -1) + operator;
         } else {
-            display.innerHTML = trimmed + op;
+            display.innerHTML = trimmed + operator;
         }
     });
 });
